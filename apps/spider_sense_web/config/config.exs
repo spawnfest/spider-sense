@@ -7,13 +7,12 @@ use Mix.Config
 
 # General application configuration
 config :spider_sense_web,
-  namespace: SpiderSenseWeb,
-  ecto_repos: [SpiderSenseWeb.Repo]
+  namespace: SpiderSenseWeb
 
 # Configures the endpoint
 config :spider_sense_web, SpiderSenseWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "zEiS+Tc5AX7tjzS61vJ78YKURKROMIeK8JJ42LSTemMcQ3OxeOHXjtU56kCmRW0Q",
+  secret_key_base: "FOzYH8xxzdrHMO1yLF5+06RCpPDmCEWN8XbP3ZL1esTfvgWMRnzIHyof+YFD1hQP",
   render_errors: [view: SpiderSenseWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: SpiderSenseWeb.PubSub,
            adapter: Phoenix.PubSub.PG2]

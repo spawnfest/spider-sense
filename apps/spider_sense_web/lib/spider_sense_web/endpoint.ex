@@ -35,7 +35,7 @@ defmodule SpiderSenseWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_spider_sense_web_key",
-    signing_salt: "oJ+v1mkB"
+    signing_salt: "lpSJQd9V"
 
   plug SpiderSenseWeb.Router
 
