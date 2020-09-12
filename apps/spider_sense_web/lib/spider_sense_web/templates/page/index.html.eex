@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-
+  <%= live_render(@conn, SpiderSenseWeb.FiltersLive) %>
   <%= live_render(@conn, SpiderSenseWeb.DGraphLive) %>
 </div>
 
