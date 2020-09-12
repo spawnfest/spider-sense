@@ -1,7 +1,17 @@
 defmodule SpiderSenseWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :spider_sense_web
 
+  @session_options [
+    store: :cookie,
+    key: "_spider_sense_web_key",
+    signing_salt: "lpSJQd9V"
+  ]
+
   socket "/socket", SpiderSenseWeb.UserSocket, websocket: true
+
+  # Socket for LiveView updates
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -32,10 +42,7 @@ defmodule SpiderSenseWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_spider_sense_web_key",
-    signing_salt: "lpSJQd9V"
+  plug Plug.Session, @session_options
 
   plug SpiderSenseWeb.Router
 

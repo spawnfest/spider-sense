@@ -23,6 +23,9 @@ defmodule SpiderSenseWeb do
       import Plug.Conn
       import SpiderSenseWeb.Router.Helpers
       import SpiderSenseWeb.Gettext
+      
+      # Use LiveView functionality
+      import Phoenix.LiveView.Controller
     end
   end
 
@@ -32,14 +35,48 @@ defmodule SpiderSenseWeb do
                         namespace: SpiderSenseWeb
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
+      import Phoenix.Controller,
+        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import SpiderSenseWeb.Router.Helpers
+      # Include shared imports and aliases for views
+      unquote(view_helpers())
+    end
+  end
+
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {SpiderSenseWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  defp view_helpers do
+    quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      # Import LiveView helpers (live_render, live_component, live_patch, etc)
+      import Phoenix.LiveView.Helpers
+
+      # Import basic rendering functionality (render, render_layout, etc)
+      import Phoenix.View
+
       import SpiderSenseWeb.ErrorHelpers
       import SpiderSenseWeb.Gettext
+      alias SpiderSenseWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -48,6 +85,9 @@ defmodule SpiderSenseWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+
+      # Use LiveView functionality
+      import Phoenix.LiveView.Router
     end
   end
 
