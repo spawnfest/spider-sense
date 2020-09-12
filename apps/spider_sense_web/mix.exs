@@ -14,6 +14,7 @@ defmodule SpiderSenseWeb.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
+      escript: escript(),
       deps: deps()
     ]
   end
@@ -24,7 +25,7 @@ defmodule SpiderSenseWeb.Mixfile do
   def application do
     [
       mod: {SpiderSenseWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :mix]
     ]
   end
 
@@ -46,6 +47,10 @@ defmodule SpiderSenseWeb.Mixfile do
       {:jason, "1.2.2"},
       {:phoenix_live_view, "0.14.4"}
     ]
+  end
+
+  def escript do
+    [main_module: SpiderSenseWeb.CLI]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
