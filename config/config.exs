@@ -9,6 +9,7 @@
 # move said applications out of the umbrella.
 import Config
 
+import_config "../apps/spider_sense/config/config.exs"
 import_config "../apps/spider_sense_web/config/config.exs"
 
 # Sample configuration:

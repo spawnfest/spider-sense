@@ -29,8 +29,18 @@ defmodule SpiderSense.DGraph do
     |> put_in([key!(:links), link_name], %Link{source: source, sink: sink, meta: meta})
   end
 
+  def process_event(%__MODULE__{} = graph, event) do
+    case event do
+      {:explorer, {:remote_function, _, module_name, _function_name, _}, %{module: caller_module}} ->
+        put_link(graph, caller_module, module_name, [])
+
+      _ ->
+        graph
+    end
+  end
+
   def list_nodes(%__MODULE__{} = graph), do: Map.values(graph.nodes)
   def list_links(%__MODULE__{} = graph), do: Map.values(graph.links)
 
-  defp get_link_name(source, sink), do: source <> "--" <> sink
+  defp get_link_name(source, sink), do: to_string(source) <> "--" <> to_string(sink)
 end
