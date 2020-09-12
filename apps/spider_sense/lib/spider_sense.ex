@@ -4,15 +4,11 @@ defmodule SpiderSense do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> SpiderSense.hello()
-      :world
-
+  Starts feeding the tracer with compilation events. It forcefully recompiles a mix project.
   """
-  def hello do
-    :world
+  def start_collecting_project_info do
+    Mix.Task.clear()
+    Mix.Task.run("run", ["--no-mix-exs", "./mix.exs"])
+    Mix.Task.run("compile", ["--force", "--tracer", SpiderSense.Tracer])
   end
 end
