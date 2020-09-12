@@ -18,6 +18,7 @@ defmodule SpiderSense.MixProject do
 
   def application do
     [
+      mod: {SpiderSense.Application, []},
       extra_applications: [:logger, :mix]
     ]
   end
