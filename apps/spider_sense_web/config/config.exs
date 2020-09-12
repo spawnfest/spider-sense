@@ -5,6 +5,8 @@
 # is restricted to this project.
 use Mix.Config
 
+config :phoenix, :json_library, Jason
+
 # General application configuration
 config :spider_sense_web,
   namespace: SpiderSenseWeb
@@ -14,8 +16,7 @@ config :spider_sense_web, SpiderSenseWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "FOzYH8xxzdrHMO1yLF5+06RCpPDmCEWN8XbP3ZL1esTfvgWMRnzIHyof+YFD1hQP",
   render_errors: [view: SpiderSenseWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: SpiderSenseWeb.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub_server: SpiderSenseWeb.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

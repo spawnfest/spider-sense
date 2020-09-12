@@ -8,6 +8,8 @@ defmodule SpiderSenseWeb.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(SpiderSenseWeb.Endpoint, []),
+      # Start Phoenix PubSub
+      {Phoenix.PubSub, [name: SpiderSenseWeb.PubSub, adapter: Phoenix.PubSub.PG2]}
       # Start your own worker by calling: SpiderSenseWeb.Worker.start_link(arg1, arg2, arg3)
       # worker(SpiderSenseWeb.Worker, [arg1, arg2, arg3]),
     ]
