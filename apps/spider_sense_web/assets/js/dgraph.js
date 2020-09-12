@@ -10,17 +10,23 @@ export const DGraph = {
     const width = svg.attr("width") - margin.right
     const height = svg.attr("height") - margin.top
 
+
     const links = data.links.map(d => Object.create(d));
     const nodes = data.nodes.map(d => Object.create(d));
 
+    const g = svg.append("g").attr("cursor", "grab")
+
     const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id))
-      .force("charge", d3.forceManyBody())
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("link", d3.forceLink(links).id(d => d.id).distance(40))
+      .force("charge", d3.forceManyBody().strength(-20))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force('collision', d3.forceCollide().radius(function(d) {
+        return d.radius
+      }));
 
     svg.attr("viewBox", [0, 0, width, height]);
 
-    const link = svg.append("g")
+    const link = g.append("g")
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.6)
       .selectAll("line")
@@ -57,18 +63,25 @@ export const DGraph = {
         .on("end", dragended);
     }
 
-    const node = svg.append("g")
+    const node = g.append("g")
+      .selectAll("g")
+      .data(nodes)
+      .join("g")
+
+    node.append("circle")
       .attr("stroke", "#fff")
       .attr("stroke-width", 1.5)
-      .selectAll("circle")
-      .data(nodes)
       .join("circle")
-      .attr("r", 5)
+      .attr("r", 10)
       .attr("fill", color)
       .call(drag(simulation));
 
     node.append("title")
       .text(d => d.id);
+
+    node.append("text")
+      .text(d => d.id)
+      .attr("font-size", "4");
 
     simulation.on("tick", () => {
       link
@@ -77,10 +90,24 @@ export const DGraph = {
         .attr("x2", d => d.target.x)
         .attr("y2", d => d.target.y);
 
-      node
+      node.selectAll("circle")
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+
+      node.selectAll("text")
+        .attr("x", d => d.x - 15)
+        .attr("y", d => d.y);
     });
+
+    function zoomed({transform}) {
+      console.log(transform)
+      g.attr("transform", transform)
+    }
+
+    svg.call(d3.zoom()
+      .extent([[0,0], [width, height]])
+      .scaleExtent([1,8])
+      .on("zoom", zoomed))
 
     //invalidation.then(() => simulation.stop());
 
