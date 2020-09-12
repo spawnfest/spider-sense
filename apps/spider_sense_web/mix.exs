@@ -43,7 +43,8 @@ defmodule SpiderSenseWeb.Mixfile do
       {:phoenix_live_reload, "1.2.4", only: :dev},
       {:gettext, "0.18.1"},
       {:plug_cowboy, "2.3.0"},
-      {:jason, "1.2.2"}
+      {:jason, "1.2.2"},
+      {:phoenix_live_view, "0.14.4"}
     ]
   end
 
