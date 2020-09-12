@@ -1,5 +1,10 @@
 defmodule SpiderSense.CLI do
+  alias SpiderSense.DExplorer
+
   def main(_args) do
-    SpiderSense.start_collecting_project_info()
+    DExplorer.subscribe()
+    DExplorer.start("mix.exs")
+
+    # TODO: 
   end
 end

@@ -3,7 +3,7 @@ defmodule SpiderSense.Application do
 
   def start(_type, _args) do
     children = [
-      SpiderSense.Tracer
+      SpiderSense.EventBus
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)
