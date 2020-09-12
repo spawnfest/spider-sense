@@ -1,4 +1,4 @@
-defmodule SpiderSense.MixProject do
+defmodule SpiderSenseUmbrella.MixProject do
   use Mix.Project
 
   def project do

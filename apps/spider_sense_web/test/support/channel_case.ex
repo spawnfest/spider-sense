@@ -18,7 +18,8 @@ defmodule SpiderSenseWeb.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with channels
-      use Phoenix.ChannelTest
+      import Plug.Conn
+      import Phoenix.ConnTest
 
       # The default endpoint for testing
       @endpoint SpiderSenseWeb.Endpoint
