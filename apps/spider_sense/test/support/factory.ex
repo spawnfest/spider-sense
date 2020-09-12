@@ -7,12 +7,14 @@ defmodule SpiderSense.Factory do
   def stub_compiler_tracer_events() do
     TracerMock
     |> expect(:start, fn _, _ ->
-      {:ok, bin} = File.read("test/fixtures/events.bin")
-      events = :erlang.binary_to_term(bin)
-
-      Enum.each(events, fn event ->
+      Enum.each(generate_events(), fn event ->
         EventBus.dispatch(SpiderSense.DExplorer, event)
       end)
     end)
+  end
+
+  def generate_events() do
+    {:ok, bin} = File.read("test/fixtures/events.bin")
+    :erlang.binary_to_term(bin)
   end
 end

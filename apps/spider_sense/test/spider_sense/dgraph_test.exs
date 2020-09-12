@@ -3,6 +3,8 @@ defmodule SpiderSense.DGraphTest do
 
   alias SpiderSense.DGraph
 
+  import SpiderSense.Factory
+
   test "&put_node/1" do
     state = %DGraph{}
     state = DGraph.put_node(state, "node_name1", :meta1)
@@ -40,5 +42,15 @@ defmodule SpiderSense.DGraphTest do
              %{name: "node_name2", meta: :node_meta1},
              %{name: "node_name3", meta: nil}
            ] = DGraph.list_nodes(state)
+  end
+
+  test "&process_event/2 should process all events" do
+    full_graph =
+      Enum.reduce(generate_events(), %DGraph{}, fn event, graph ->
+        DGraph.process_event(graph, event)
+      end)
+
+    assert length(DGraph.list_nodes(full_graph)) == 30
+    assert length(DGraph.list_links(full_graph)) == 66
   end
 end
