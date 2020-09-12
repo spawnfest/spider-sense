@@ -4,27 +4,46 @@ defmodule SpiderSenseWeb.DGraphLive do
   def render(assigns) do
     ~L"""
     <h3>Live value: <%= @counter %></h3>
+    <div id="dgraph" data-chart="<%= Jason.encode!(@chart_data) %>">
+      <svg width="600" height="600"></svg>
+    </div>
+    <script>
+    // Since this script is loaded immediately, it must wait for app.js to be
+    // loaded, which inserts the DGraph constant into window
+    function wait() {
+      if (typeof DGraph !== "undefined") {
+        // Load the chart initially
+        DGraph.update_chart("dgraph");
+
+        // Update the DGraph chart whenever data changes
+        new MutationObserver(function(mutations, observer) {
+          DGraph.update_chart('dgraph');
+        }).observe(document.getElementById('dgraph'), {attributes: true});
+      }
+      else {
+        setTimeout(wait, 250);
+      }
+    }
+    wait();
+    </script>
     """
   end
 
   def mount(_params, _session, socket) do
-    SpiderSenseWeb.Counter.start_link(self())
-    {:ok, assign(socket, :counter, 0)}
-  end
-
-  def handle_info(:inc, socket) do
-    {:noreply, assign(socket, :counter, socket.assigns.counter + 1)}
-  end
-end
-
-defmodule SpiderSenseWeb.Counter do
-  def start_link(to_pid) do
-    spawn(fn -> loop(to_pid) end)
-  end
-
-  defp loop(to_pid) do
-    Process.sleep(1000)
-    Process.send(to_pid, :inc, [:noconnect])
-    loop(to_pid)
+    {:ok,
+      socket
+      |> assign(:counter, 0)
+      |> assign(:chart_data, %{
+        nodes: [
+          %{id: "test1", group: 1},
+          %{id: "test2", group: 1},
+          %{id: "test3", group: 2}
+        ],
+        links: [
+          %{source: "test1", target: "test2", value: 1},
+          %{source: "test1", target: "test3", value: 1}
+        ]
+      })
+    }
   end
 end

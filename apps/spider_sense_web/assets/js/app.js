@@ -23,6 +23,7 @@ import "phoenix_html"
 // LiveView setup
 import {Socket} from "phoenix"
 import LiveSocket from "phoenix_live_view"
+import { DGraph } from "./dgraph"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
@@ -37,3 +38,4 @@ liveSocket.connect()
 // Call disableLatencySim() to disable:
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+window.DGraph = DGraph
