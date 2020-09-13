@@ -4,7 +4,7 @@ defmodule SpiderSenseWeb.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
-    Vapor.load!([%Vapor.Provider.Dotenv{}])
+    #Vapor.load!([%Vapor.Provider.Dotenv{}])
     load_system_env()
 
     # Define workers and child supervisors to be supervised
@@ -30,26 +30,11 @@ defmodule SpiderSenseWeb.Application do
     :ok
   end
 
-  # Loads the necessary configuration from the .env file at the
-  # project root
+  # Sets the necessary configuration for the web Endpoint
   defp load_system_env() do
-    port =
-      case System.get_env("PORT") do
-        nil -> raise("Environment variable PORT must be set")
-        value -> String.to_integer(value)
-      end
-
-    secret_key_base =
-      case System.get_env("SECRET_KEY_BASE") do
-        nil -> raise("Environment variable SECRET_KEY_BASE must be set")
-        value -> value
-      end
-
-    signing_salt =
-      case System.get_env("SIGNING_SALT") do
-        nil -> raise("Environment variable SIGNING_SALT must be set")
-        value -> value
-      end
+    port = 4000
+    secret_key_base = "FOzYH8xxzdrHMO1yLF5+06RCpPDmCEWN8XbP3ZL1esTfvgWMRnzIHyof+YFD1hQP"
+    signing_salt = "q40knCczi/s0gSm2CVseILbNZvtFb5Eg"
 
     Application.put_env(
       :spider_sense_web, 
