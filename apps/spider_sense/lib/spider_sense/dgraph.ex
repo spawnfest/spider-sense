@@ -27,7 +27,7 @@ defmodule SpiderSense.DGraph do
 
   def put_new_node(%__MODULE__{} = graph, name, meta) do
     if Map.has_key?(graph.nodes, name) ||
-      Enum.member?(@ignore_modules, name) do
+         Enum.member?(@ignore_modules, name) do
       graph
     else
       put_node(graph, name, meta)
