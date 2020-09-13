@@ -14,3 +14,7 @@ localhost:4000
 ```
 
 TODO Fill in more examples and specify usage as things develop
+
+### Special Thanks to Third Party Tools
+
+SpiderSense was built with the [Phoenix Framework](https://phoenixframework.org/) and graph visualizations are powered by [D3 JS](https://d3js.org/).
