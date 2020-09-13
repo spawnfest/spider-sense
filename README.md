@@ -63,7 +63,7 @@ The checkbox hides modules that are not a part of the application's own code.
 
 Here is an example graph for [Ecto](https://github.com/elixir-ecto/ecto):
 
-[](./example.png)
+![](./example.png)
 
 # Problems
 
