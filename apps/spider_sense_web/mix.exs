@@ -42,6 +42,7 @@ defmodule SpiderSenseWeb.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:spider_sense, in_umbrella: true},
       {:phoenix, "1.5.4"},
       {:phoenix_pubsub, "2.0.0"},
       {:phoenix_html, "2.14.2"},
