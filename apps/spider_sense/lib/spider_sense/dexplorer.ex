@@ -16,7 +16,7 @@ defmodule SpiderSense.DExplorer do
 
       @impl true
       def start(path_to_mix_file, module_name) do
-        Code.put_compiler_option(:tracers, [SpiderSense.DExplorer])
+        Code.put_compiler_option(:tracers, [module_name])
         Code.put_compiler_option(:parser_options, columns: true)
 
         Path.dirname(path_to_mix_file)

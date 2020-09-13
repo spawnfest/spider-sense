@@ -10,9 +10,9 @@ defmodule SpiderSenseWeb.Mixfile do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "1.10.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       escript: escript(),
       aliases: aliases(),
       deps: deps()
@@ -31,7 +31,7 @@ defmodule SpiderSenseWeb.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   def escript do
     [main_module: SpiderSenseWeb.CLI]

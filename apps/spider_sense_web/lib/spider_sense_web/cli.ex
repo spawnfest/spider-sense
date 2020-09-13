@@ -1,15 +1,10 @@
 defmodule SpiderSenseWeb.CLI do
-  alias SpiderSense.DExplorer
   alias SpiderSense.DGraph
 
   def main(["list" | args]) do
     path_to_mix_file = List.first(args) || "mix.exs"
 
-    graph =
-      DExplorer.stream_events(path_to_mix_file)
-      |> Enum.reduce(%DGraph{}, fn event, graph ->
-        DGraph.process_event(graph, event)
-      end)
+    graph = SpiderSense.build_graph(path_to_mix_file)
 
     IO.puts("Modules: ")
 
@@ -27,12 +22,16 @@ defmodule SpiderSenseWeb.CLI do
   end
 
   def main(_args) do
-    IO.puts "Starting server"
+    start_server()
 
     receive do
-      :exit -> nil
       after
       :infinity -> nil
     end
+  end
+
+  defp start_server() do
+    Application.put_env(:phoenix, :serve_endpoints, true, persistent: true)
+    Mix.Tasks.Run.run ["--no-mix-exs"]
   end
 end

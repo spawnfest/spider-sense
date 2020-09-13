@@ -12,8 +12,14 @@ config :spider_sense_web, SpiderSenseWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   server: true,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/brunch/bin/brunch",
+      "watch",
+      "--stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # ## SSL Support
 #
@@ -41,5 +47,3 @@ config :spider_sense_web, SpiderSenseWeb.Endpoint,
       ~r{lib/spider_sense_web/templates/.*(eex)$}
     ]
   ]
-
-
