@@ -58,9 +58,10 @@ Individual nodes can be dragged around the graph area to more easily view them.
 Use the provided text box to specify a path on your local machine to a `mix.exs` file within one of your own projects.
 When specifying a path, do not use the `~` character as an alias to the home directory.
 This will not work.
-Once a path to a `mix.exs` file is specified, click the `Load Graph` button to compile the application for the specified `mix.exs` file.
+Once a path to a `mix.exs` file is specified, click the `Load Graph` button to compile the application for the specified `mix.exs` file and load the graph of traced modules.
+The checkbox hides modules that are not a part of the application's own code.
 
-Here is an example graph for [this application](https://github.com/bgottlob/apex/tree/master/apps/apex_redis_streamer):
+Here is an example graph for [Ecto](https://github.com/elixir-ecto/ecto):
 
 [](./example.png)
 
@@ -68,11 +69,9 @@ Here is an example graph for [this application](https://github.com/bgottlob/apex
 
 - Directions of links are not displayed
 - A compiler error will show after attempting to compile a Hex dependency
-- Large enough projects may have so many nodes and links that the browser tab hangs up or crashes
 
 # Future Work
 
-- Filtering options to show only your application code
 - Expand the graph to traverse Hex dependency code
 - Running the web UI as a `mix` task directly from the target application
 
