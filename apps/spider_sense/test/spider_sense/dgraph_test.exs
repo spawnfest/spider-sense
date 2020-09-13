@@ -38,9 +38,9 @@ defmodule SpiderSense.DGraphTest do
            ] = DGraph.list_links(state)
 
     assert [
-             %{name: "node_name1", meta: nil},
+             %{name: "node_name1", meta: %{belongs_to_project?: false}},
              %{name: "node_name2", meta: :node_meta1},
-             %{name: "node_name3", meta: nil}
+             %{name: "node_name3", meta: %{belongs_to_project?: false}}
            ] = DGraph.list_nodes(state)
   end
 
@@ -50,7 +50,12 @@ defmodule SpiderSense.DGraphTest do
         DGraph.process_event(graph, event)
       end)
 
-    assert length(DGraph.list_nodes(full_graph)) == 30
-    assert length(DGraph.list_links(full_graph)) == 66
+    nodes = DGraph.list_nodes(full_graph)
+    links = DGraph.list_links(full_graph)
+
+    assert length(nodes) == 31
+    assert length(links) == 66
+
+    assert %{meta: %{belongs_to_project?: true}} = Enum.find(nodes, &(&1.name == SpiderSense))
   end
 end
