@@ -18,6 +18,7 @@ defmodule SpiderSense.DExplorer do
       def start(path_to_mix_file, module_name) do
         Code.put_compiler_option(:tracers, [module_name])
         Code.put_compiler_option(:parser_options, columns: true)
+        Code.put_compiler_option(:ignore_module_conflict, true)
 
         Path.dirname(path_to_mix_file)
         |> Path.join("**/*.ex")
@@ -26,6 +27,7 @@ defmodule SpiderSense.DExplorer do
 
         Code.put_compiler_option(:tracers, [])
         Code.put_compiler_option(:parser_options, [])
+        Code.put_compiler_option(:ignore_module_conflict, false)
       end
     end
 
