@@ -2,5 +2,7 @@
   <h2><%= gettext "Welcome to %{name}!", name: "SpiderSense" %></h2>
   <p class="lead">Traverse your project's web of dependencies.</p>
 
+  <hr>
+
   <%= live_render(@conn, SpiderSenseWeb.DGraphLive) %>
 </div>

@@ -12,7 +12,8 @@ defmodule SpiderSenseWeb.DGraphLive do
     ~L"""
     <form phx-submit="load_graph">
       <label for="path">Path to the <code>mix.exs</code> file</label>
-      <input type="text" name="mix_path" value="<%= @mix_path %>"></input>
+      <input type="text" name="mix_path" value="<%= @mix_path %>"
+        style="min-width: 300px;"></input>
       <button type="submit">Load Graph</button>
     </form>
     <%= form_for :filter, "/", [phx_change: "filter_changed"], fn _ -> %>

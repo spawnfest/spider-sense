@@ -37,6 +37,18 @@ body, form, ul, table {
   padding-left: 15px;
 }
 
+.footer {
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: solid 1px #e5e5e5;
+  min-height: 48px;
+  line-height: 48px;
+  background: white;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {

@@ -1,12 +1,12 @@
 <div class="container" style="width:90%; max-width:90%">
-  <header class="header">
-    <span class="logo"></span>
-  </header>
-
   <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
   <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
   <main role="main">
     <%= @inner_content %>
   </main>
+
+  <div class="footer">
+    Project created for Spawnfest 2020
+  </div>
 </div>
