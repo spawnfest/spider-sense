@@ -9,7 +9,7 @@ defmodule SpiderSenseWeb.Mixfile do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "1.10.4",
+      elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -43,7 +43,7 @@ defmodule SpiderSenseWeb.Mixfile do
   defp deps do
     [
       {:spider_sense, in_umbrella: true},
-      {:phoenix, "1.5.4"},
+      {:phoenix, "~> 1.5"},
       {:phoenix_pubsub, "2.0.0"},
       {:phoenix_html, "2.14.2"},
       {:phoenix_live_reload, "1.2.4", only: :dev},
