@@ -17,12 +17,10 @@ export const DGraph = {
     const g = svg.append("g").attr("cursor", "grab")
 
     const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(links).id(d => d.id).distance(40))
+      .force("link", d3.forceLink(links).id(d => d.id).distance(30))
       .force("charge", d3.forceManyBody().strength(-20))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius(function(d) {
-        return d.radius
-      }));
+      .force('collision', d3.forceCollide().radius(20));
 
     svg.attr("viewBox", [0, 0, width, height]);
 
