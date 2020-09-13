@@ -1,4 +1,4 @@
-# Spider Sense
+# Spider Sense 🕸️
 
 Spider Sense traverses a project's web of dependencies and displays them in the browser. The dependencies, modules and function calls are displayed using Phoenix LiveView and D3 which then can be filtered and explored.
 
