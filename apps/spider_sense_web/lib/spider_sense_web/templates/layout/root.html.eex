@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello SpiderSenseWeb!</title>
+    <title>SpiderSense</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
     <script defer src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
