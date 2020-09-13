@@ -17,4 +17,5 @@ config :spider_sense_web, SpiderSenseWeb.Endpoint,
   load_from_system_env: false,
   http: [port: 4000],
   server: true,
-  url: [host: "localhost", port: 4000]
+  url: [host: "localhost", port: 4000],
+  cache_static_manifest: "priv/static/cache_manifest.json"

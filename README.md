@@ -18,3 +18,13 @@ TODO Fill in more examples and specify usage as things develop
 ### Special Thanks to Third Party Tools
 
 SpiderSense was built with the [Phoenix Framework](https://phoenixframework.org/) and graph visualizations are powered by [D3 JS](https://d3js.org/).
+
+# Build
+
+```
+cd apps/spider_sense_web
+npm install --prefix ./assets
+npm run deploy --prefix ./assets
+mix phx.digest
+MIX_ENV=prod mix phx.server
+```
