@@ -5,3 +5,5 @@ use Mix.Config
 config :spider_sense_web, SpiderSenseWeb.Endpoint,
   http: [port: 4001],
   server: false
+
+config :logger, level: :warn
