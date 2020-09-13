@@ -4,6 +4,7 @@ defmodule SpiderSenseWeb.DGraphLive do
   alias SpiderSense.DExplorer
   alias SpiderSense.DGraph
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~L"""
     <h3>Live value: <%= @counter %></h3>
@@ -33,6 +34,7 @@ defmodule SpiderSenseWeb.DGraphLive do
     }
   end
 
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     DExplorer.subscribe()
     mix_path = "../spider_sense/priv/example/mix.exs"
@@ -48,6 +50,7 @@ defmodule SpiderSenseWeb.DGraphLive do
     }
   end
 
+  @impl Phoenix.LiveView
   def handle_info({:explorer, :explore_project_start, _}, socket) do
     {:noreply, assign(socket, :loading, true)}
   end
