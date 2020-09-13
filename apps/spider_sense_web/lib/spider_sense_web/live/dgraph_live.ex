@@ -89,10 +89,8 @@ defmodule SpiderSenseWeb.DGraphLive do
     {:noreply, socket}
   end
 
-  # Fallback
   def handle_info(msg, socket) do
-    IO.inspect(msg)
-    IO.warn("Ignored message")
+    IO.warn("Unhandled message: #{inspect msg}")
     {:noreply, socket}
   end
 
