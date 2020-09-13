@@ -59,7 +59,9 @@ Use the provided text box to specify a path on your local machine to a `mix.exs`
 When specifying a path, do not use the `~` character as an alias to the home directory.
 This will not work.
 Once a path to a `mix.exs` file is specified, click the `Load Graph` button to compile the application for the specified `mix.exs` file and load the graph of traced modules.
-The checkbox hides modules that are not a part of the application's own code.
+The "Show only project modules" checkbox hides modules that are not a part of the application's own code.
+Below that are additional checkboxes for each module in the target application.
+Individual modules can be hidden from the graph by unchecking the module's checkbox.
 
 Here is an example graph for [Ecto](https://github.com/elixir-ecto/ecto):
 
