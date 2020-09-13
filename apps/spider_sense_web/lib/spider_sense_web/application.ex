@@ -4,7 +4,6 @@ defmodule SpiderSenseWeb.Application do
   def start(_type, _args) do
     import Supervisor.Spec
 
-    #Vapor.load!([%Vapor.Provider.Dotenv{}])
     load_system_env()
 
     # Define workers and child supervisors to be supervised
