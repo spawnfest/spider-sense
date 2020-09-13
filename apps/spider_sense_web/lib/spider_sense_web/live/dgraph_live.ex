@@ -68,6 +68,13 @@ defmodule SpiderSenseWeb.DGraphLive do
     {:noreply, socket}
   end
 
+  # Fallback
+  def handle_info(msg, socket) do
+    IO.inspect(msg)
+    IO.warn("Ignored message")
+    {:noreply, socket}
+  end
+
   defp update_dgraph_by_event(socket, event) do
     dgraph = DGraph.process_event(socket.assigns.dgraph, event)
     assign(socket, :dgraph, dgraph)
