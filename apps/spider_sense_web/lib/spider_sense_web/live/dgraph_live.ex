@@ -23,6 +23,20 @@ defmodule SpiderSenseWeb.DGraphLive do
           checked: @is_external_modules_hidden) %>
         Show only project modules
       </label>
+      <div class="container pre-scrollable">
+        <%= for module <- @modules do %>
+          <div class="row">
+            <label>
+              <%= tag(:input,
+                name: "checked_modules[]",
+                type: "checkbox",
+                value: module,
+                checked: module in @checked_modules) %>
+              <%= module %>
+            </label>
+          </div>
+        <% end %>
+      </div>
     <% end %>
     <%= if @loading do %>
       <div>Loading...</div>
@@ -48,6 +62,7 @@ defmodule SpiderSenseWeb.DGraphLive do
   def handle_event("filter_changed", params, socket) do
     {:noreply,
      socket
+     |> assign(:checked_modules, map_names_to_modules(params["checked_modules"]))
      |> assign(:is_external_modules_hidden, params["is_external_modules_hidden"] && true)
      |> update_chart_data_by_dgraph()}
   end
@@ -62,6 +77,8 @@ defmodule SpiderSenseWeb.DGraphLive do
      socket
      |> assign(:loading, false)
      |> assign(:is_external_modules_hidden, true)
+     |> assign(:checked_modules, [])
+     |> assign(:modules, [])
      |> assign(:mix_path, mix_path)
      |> assign(:dgraph, %DGraph{})
      |> update_chart_data_by_dgraph()}
@@ -80,6 +97,7 @@ defmodule SpiderSenseWeb.DGraphLive do
           socket
           |> assign(:loading, false)
           |> update_dgraph_by_event(event)
+          |> init_modules_filter_state()
           |> update_chart_data_by_dgraph()
 
         _ ->
@@ -90,8 +108,19 @@ defmodule SpiderSenseWeb.DGraphLive do
   end
 
   def handle_info(msg, socket) do
-    IO.warn("Unhandled message: #{inspect msg}")
+    IO.warn("Unhandled message: #{inspect(msg)}")
     {:noreply, socket}
+  end
+
+  defp init_modules_filter_state(socket) do
+    modules_names =
+      socket.assigns.dgraph
+      |> DGraph.list_nodes()
+      |> Enum.map(& &1.name)
+
+    socket
+    |> assign(:checked_modules, modules_names)
+    |> assign(:modules, modules_names)
   end
 
   defp update_dgraph_by_event(socket, event) do
@@ -123,5 +152,11 @@ defmodule SpiderSenseWeb.DGraphLive do
       nodes: nodes,
       links: links
     })
+  end
+
+  defp map_names_to_modules(names) do
+    Enum.map(names, &String.to_existing_atom/1)
+  rescue
+    _ -> []
   end
 end

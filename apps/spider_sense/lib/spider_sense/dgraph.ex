@@ -62,26 +62,37 @@ defmodule SpiderSense.DGraph do
           end)
           |> Map.new()
 
-        project_modules_names = Map.keys(project_nodes)
+        put_in(graph, [key!(:nodes)], project_nodes)
 
-        project_links =
-          graph.links
-          |> Enum.filter(fn
-            {_, %{source: source, sink: sink}} ->
-              source in project_modules_names and sink in project_modules_names
-
-            _ ->
-              false
-          end)
+      {:checked_modules, modules}, graph ->
+        project_nodes =
+          graph.nodes
+          |> Enum.filter(fn {_, %{name: name}} -> name in modules end)
           |> Map.new()
 
-        graph
-        |> put_in([key!(:nodes)], project_nodes)
-        |> put_in([key!(:links)], project_links)
+        put_in(graph, [key!(:nodes)], project_nodes)
 
       _, graph ->
         graph
     end)
+    |> filter_links_not_listed_in_modules()
+  end
+
+  defp filter_links_not_listed_in_modules(graph) do
+    project_modules_names = Map.keys(graph.nodes)
+
+    project_links =
+      graph.links
+      |> Enum.filter(fn
+        {_, %{source: source, sink: sink}} ->
+          source in project_modules_names and sink in project_modules_names
+
+        _ ->
+          false
+      end)
+      |> Map.new()
+
+    put_in(graph, [key!(:links)], project_links)
   end
 
   defp get_link_name(source, sink), do: to_string(source) <> "--" <> to_string(sink)
