@@ -12,7 +12,6 @@ defmodule SpiderSense.MixProject do
       elixir: "1.10.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      escript: escript(),
       deps: deps()
     ]
   end
@@ -26,10 +25,6 @@ defmodule SpiderSense.MixProject do
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
-
-  def escript do
-    [main_module: SpiderSense.CLI]
-  end
 
   defp deps do
     [{:hammox, "~> 0.2", only: :test}]

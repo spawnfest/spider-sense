@@ -9,12 +9,10 @@ defmodule SpiderSense.DExplorerTest do
   @priv_dir :code.priv_dir(:spider_sense) |> to_string()
   @example_mix_exs @priv_dir <> "/example/mix.exs"
 
-  setup :verify_on_exit!
-
-  setup do
-    stub_compiler_tracer_events()
-    :ok
-  end
+  setup [
+    :stub_compiler_tracer_events,
+    :verify_on_exit!
+  ]
 
   test "&start/1 should start emit messages" do
     DExplorer.subscribe()

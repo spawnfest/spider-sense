@@ -16,9 +16,16 @@ defmodule SpiderSense.DExplorer do
 
       @impl true
       def start(path_to_mix_file, module_name) do
-        Mix.Task.clear()
-        Mix.Task.run("run", ["--no-mix-exs", path_to_mix_file])
-        Mix.Task.run("compile", ["--force", "--tracer", module_name])
+        Code.put_compiler_option(:tracers, [module_name])
+        Code.put_compiler_option(:parser_options, columns: true)
+
+        Path.dirname(path_to_mix_file)
+        |> Path.join("**/*.ex")
+        |> Path.wildcard()
+        |> Kernel.ParallelCompiler.compile()
+
+        Code.put_compiler_option(:tracers, [])
+        Code.put_compiler_option(:parser_options, [])
       end
     end
 
