@@ -10,21 +10,20 @@ defmodule SpiderSenseWeb.DGraphLive do
   @impl Phoenix.LiveView
   def render(assigns) do
     ~L"""
-    <form phx-submit="load_graph">
-      <label for="path">Path to the <code>mix.exs</code> file</label>
-      <input type="text" name="mix_path" value="<%= @mix_path %>"
-        style="min-width: 300px;"></input>
-      <button type="submit">Load Graph</button>
-    </form>
-    <%= form_for :filter, "/", [phx_change: "filter_changed"], fn _ -> %>
-      <label>
-        <%= tag(:input,
-          name: "is_external_modules_hidden",
-          type: "checkbox",
-          checked: @is_external_modules_hidden) %>
-        Show only project modules
-      </label>
-      <div class="container pre-scrollable">
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" style="margin-top: 100px;">
+      <%= form_for :filter, "/", [phx_change: "filter_changed"], fn _ -> %>
+        <div class="row">
+          <label>
+            <%= tag(:input,
+              name: "is_external_modules_hidden",
+              type: "checkbox",
+              checked: @is_external_modules_hidden) %>
+            Show only project modules
+          </label>
+        </div>
+
+        <p></p>
+
         <%= for module <- @modules do %>
           <div class="row">
             <label>
@@ -37,13 +36,22 @@ defmodule SpiderSenseWeb.DGraphLive do
             </label>
           </div>
         <% end %>
+      <% end %>
+    </div>
+
+    <div class="col-xs-12 col-sm-9">
+      <form phx-submit="load_graph">
+        <label for="path">Path to the <code>mix.exs</code> file</label>
+        <input type="text" name="mix_path" value="<%= @mix_path %>"
+          style="min-width: 300px;"></input>
+        <button type="submit">Load Graph</button>
+      </form>
+      <%= if @loading do %>
+        <div>Loading...</div>
+      <% end %>
+      <div id="dgraph" phx-hook="DGraph" data-chart="<%= Jason.encode!(@chart_data) %>">
+        <svg width="600" height="600"></svg>
       </div>
-    <% end %>
-    <%= if @loading do %>
-      <div>Loading...</div>
-    <% end %>
-    <div id="dgraph" phx-hook="DGraph" data-chart="<%= Jason.encode!(@chart_data) %>">
-      <svg width="600" height="600"></svg>
     </div>
     """
   end
@@ -157,7 +165,5 @@ defmodule SpiderSenseWeb.DGraphLive do
 
   defp map_names_to_modules(names) do
     Enum.map(names, &String.to_existing_atom/1)
-  rescue
-    _ -> []
   end
 end
