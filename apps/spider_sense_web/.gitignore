@@ -3,6 +3,7 @@
 /db
 /deps
 /*.ez
+/spider_sense_web
 
 # Generated on crash by the VM
 erl_crash.dump

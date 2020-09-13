@@ -2,7 +2,7 @@ defmodule SpiderSense.CLI do
   alias SpiderSense.DExplorer
   alias SpiderSense.DGraph
 
-  def main(args) do
+  def main(["list" | args]) do
     path_to_mix_file = List.first(args) || "mix.exs"
 
     graph =
@@ -24,5 +24,8 @@ defmodule SpiderSense.CLI do
     |> Enum.each(fn %{source: source, sink: sink} ->
       IO.puts("- #{source} -> #{sink}")
     end)
+  end
+
+  def main(_args) do
   end
 end

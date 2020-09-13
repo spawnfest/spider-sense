@@ -11,6 +11,7 @@ config :spider_sense_web, SpiderSenseWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  server: true,
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]]
 

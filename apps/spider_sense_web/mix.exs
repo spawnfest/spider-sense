@@ -13,6 +13,7 @@ defmodule SpiderSenseWeb.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
+      escript: escript(),
       aliases: aliases(),
       deps: deps()
     ]
@@ -24,13 +25,17 @@ defmodule SpiderSenseWeb.Mixfile do
   def application do
     [
       mod: {SpiderSenseWeb.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :mix]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_),     do: ["lib"]
+
+  def escript do
+    [main_module: SpiderSenseWeb.CLI]
+  end
 
   # Specifies your project dependencies.
   #
