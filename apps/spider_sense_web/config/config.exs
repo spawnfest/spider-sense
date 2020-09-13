@@ -12,12 +12,12 @@ config :spider_sense_web,
   namespace: SpiderSenseWeb
 
 # Configures the endpoint
-config :spider_sense_web, SpiderSenseWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "FOzYH8xxzdrHMO1yLF5+06RCpPDmCEWN8XbP3ZL1esTfvgWMRnzIHyof+YFD1hQP",
-  render_errors: [view: SpiderSenseWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: SpiderSenseWeb.PubSub,
-  live_view: [signing_salt: "q40knCczi/s0gSm2CVseILbNZvtFb5Eg"]
+#config :spider_sense_web, SpiderSenseWeb.Endpoint,
+  #url: [host: "localhost"],
+  #secret_key_base: "FOzYH8xxzdrHMO1yLF5+06RCpPDmCEWN8XbP3ZL1esTfvgWMRnzIHyof+YFD1hQP",
+  #render_errors: [view: SpiderSenseWeb.ErrorView, accepts: ~w(html json)],
+  #pubsub_server: SpiderSenseWeb.PubSub
+  #live_view: [signing_salt: "q40knCczi/s0gSm2CVseILbNZvtFb5Eg"]
 
 # Configures Elixir's Logger
 config :logger, :console,

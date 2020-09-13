@@ -44,7 +44,8 @@ defmodule SpiderSenseWeb.Mixfile do
       {:gettext, "0.18.1"},
       {:plug_cowboy, "2.3.0"},
       {:jason, "1.2.2"},
-      {:phoenix_live_view, "0.14.4"}
+      {:phoenix_live_view, "0.14.4"},
+      {:vapor, "~> 0.10.0"}
     ]
   end
 
