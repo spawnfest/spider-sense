@@ -3,6 +3,13 @@ defmodule SpiderSense.DGraph do
   A struct which collects nodes and links from Tracer
   and can be used as a state in consumers which render a deps tree
   """
+  @ignore_modules [
+    :compile,
+    :elixir_def,
+    :elixir_module,
+    :elixir_utils,
+    nil
+  ]
 
   defstruct nodes: %{},
             links: %{}
@@ -19,7 +26,12 @@ defmodule SpiderSense.DGraph do
   end
 
   def put_new_node(%__MODULE__{} = graph, name, meta) do
-    if Map.has_key?(graph.nodes, name), do: graph, else: put_node(graph, name, meta)
+    if Map.has_key?(graph.nodes, name) ||
+         Enum.member?(@ignore_modules, name) do
+      graph
+    else
+      put_node(graph, name, meta)
+    end
   end
 
   def put_link(%__MODULE__{} = graph, source, sink, meta) do

@@ -53,7 +53,7 @@ defmodule SpiderSense.DGraphTest do
     nodes = DGraph.list_nodes(full_graph)
     links = DGraph.list_links(full_graph)
 
-    assert length(nodes) == 31
+    assert length(nodes) == 26
     assert length(links) == 66
 
     assert %{meta: %{belongs_to_project?: true}} = Enum.find(nodes, &(&1.name == SpiderSense))
